@@ -16,7 +16,7 @@
     У вас масив имеет больше чем 1 пользователь
   </div>
 
-  <User v-for="(el, index) in users" :key="index" :uuuser="el" @click="deleteUser(index)"/>
+  <User v-for="(el, index) in users" :key="index" :uuuser="el" :index="index" :deleteUser="deleteUser" />
 
   
 </template>
@@ -105,7 +105,7 @@ input {
   border-radius: 8px;
 }
 .user {
-  width: 300px;
+  width: 500px;
   margin-top: 20px;
   border: 1px solid silver;
   background: #e3e3e3;
