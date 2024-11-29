@@ -16,15 +16,18 @@
     У вас масив имеет больше чем 1 пользователь
   </div>
 
-  <div v-for="(el, index) in users" :key="index" class="user">
-   <h3>{{ el.name }}</h3>
-   <p>{{ el.email }} - <b>{{ el.password }}</b></p>
-  </div>
+  <User v-for="(el, index) in users" :key="index" :uuuser="el" @click="deleteUser(index)"/>
+
   
 </template>
 
 <script>
+import User from './components/User.vue';
+
 export default {
+  components: {
+    User
+  },
   data() {
     return {
       users: [],
@@ -61,6 +64,9 @@ export default {
         email: this.userEmail,
       });
     },
+    deleteUser(index) {
+      this.users.splice(index, 1);
+    }
   },
 };
 </script>
