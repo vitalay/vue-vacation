@@ -1,18 +1,32 @@
 <template>
   <input type="text" v-model="userName" placeholder="Name" />
   <input type="password" v-model="userPassword" placeholder="Password" />
-  <input type="text" v-model="userEmail" placeholder="Email" />
+  <input type="email" v-model="userEmail" placeholder="Email" />
+  
   <button @click="sendData">Нажми</button>
-  <p className="error"> {{ error }}</p>
+  <p className="error">{{ error }}</p>
 
-  <p>{{ users }}</p>
+  <div v-if="users.length == 0" className = 'user'>
+    У вас нет пользователей
+  </div>
+  <div v-else-if="users.length == 1" className = 'user'>
+    У вас 1 пользователь
+  </div>
+  <div v-else className = 'user'>
+    У вас масив имеет больше чем 1 пользователь
+  </div>
+
+  <div v-for="(el, index) in users" :key="index" class="user">
+   <h3>{{ el.name }}</h3>
+   <p>{{ el.email }} - <b>{{ el.password }}</b></p>
+  </div>
+  
 </template>
 
 <script>
 export default {
   data() {
     return {
-
       users: [],
       error: "",
       userName: "",
@@ -22,11 +36,24 @@ export default {
   },
   methods: {
     sendData() {
-
-      if (this.userName === "" || this.userPassword === "" || this.userEmail === "") {
+      if (this.userName == ""){
         this.error = "Заполните все поля";
         return;
       }
+      if (this.userPassword == "") {
+        this.error = "Заполните все поля";
+        return;   
+
+      }
+      if (this.userEmail == "") {
+        this.error = "Заполните все поля";
+        return;
+      }
+  
+      
+        this.error = "";
+        
+      
 
       this.users.push({
         name: this.userName,
@@ -71,4 +98,14 @@ input {
   background: #f6f6f6;
   border-radius: 8px;
 }
+.user {
+  width: 300px;
+  margin-top: 20px;
+  border: 1px solid silver;
+  background: #e3e3e3;
+  color: #222;
+  padding: 20px;
+  border-radius: 5px;
+}
+  
 </style>
